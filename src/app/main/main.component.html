@@ -1,0 +1,18 @@
+<div class="ui top attached menu inverted" style="background-image: linear-gradient( 113.7deg,  rgba(43,58,103,1) 11.5%, rgba(122,134,172,1) 124.1% );">
+  <a class="item" (click)="sidebar.toggle()">
+      <i class="sidebar icon"></i> Menu
+  </a>
+  <h3 style="color:#fff;">&nbsp; {{titleMenu}}</h3>
+</div>
+<sui-sidebar-container class="ui bottom attached segment">
+  <sui-sidebar class="inverted vertical" #sidebar (click)="sidebar.toggle()">
+      <a class="item" (click)="setTitle('User Form')" routerLink="/main/user"><i class="fas fa-users"></i>&nbsp; User</a>
+      <a class="item" (click)="setTitle('Application Form')"routerLink="/main/application"><i class="fab fa-trello"></i>&nbsp; Application</a>
+      <a class="item" (click)="logout()" routerLink="login"><i class="fas fa-sign-out-alt"></i>&nbsp; Logout</a>
+  </sui-sidebar>
+  <sui-sidebar-sibling [isDimmedWhenVisible]="true">
+      <div class="ui basic segment">
+          <router-outlet></router-outlet>
+      </div>
+  </sui-sidebar-sibling>
+</sui-sidebar-container>

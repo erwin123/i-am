@@ -1,0 +1,78 @@
+<row>
+  <column xs="12" sm="12" md="6" lg="6" xl="6">
+    <div class="apps-container">
+
+      <form class="ui form apps-form" [formGroup]="form">
+        <div class="ui segment">
+          <h4 class="ui header">Primary Data</h4>
+          <div class="apps-sprite">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" formControlName="uname" name="uname" required>
+
+            <div class="field">
+              <sui-checkbox suiPopup popupHeader="Notice" popupPlacement="right" popupText="For new data, keep it disable to generate random password. Email required to send password." class="slider" (ngModelChange)="chUpdatePwd($event)" [ngModelOptions]="{standalone: true}" [(ngModel)]="updatePwd">Include Password</sui-checkbox>
+            </div>
+            <label for="pwd"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" formControlName="pwd" name="pwd" required>
+
+            <label for="cpwd"><b>Confirm Password</b></label>
+            <input type="password" placeholder="Enter Confirm Password" formControlName="cpwd" name="cpwd" required>
+
+          </div>
+        </div>
+        <div class="ui segment">
+          <sui-accordion [closeOthers]="false">
+            <sui-accordion-panel>
+              <div title>
+                <i class="dropdown icon"></i>
+                Detail Data
+              </div>
+              <div content>
+                <div class="user-sprite">
+                  <label for="fname"><b>First Name</b></label>
+                  <input type="text" placeholder="First Name" formControlName="fname" name="fname" required>
+
+                  <label for="lname"><b>Last Name</b></label>
+                  <input type="text" placeholder="Last Name" formControlName="lname" name="lname" required>
+
+                  <label for="gender"><b>Sex</b></label><br/>
+
+                  <sui-select placeholder="Choose" formControlName="gender" name="gender">
+                    <sui-select-option value="<i class='icon male'></i>| Male"></sui-select-option>
+                    <sui-select-option value="<i class='icon female'></i>| Female"></sui-select-option>
+                  </sui-select>
+                  <br/><br/>
+
+                  <label for="phone"><b>Phone</b></label>
+                  <input type="number" placeholder="Phone" formControlName="phone" name="phone" required>
+
+                  <label for="email"><b>Email</b></label>
+                  <input type="text" placeholder="Email" formControlName="email" name="email" required>
+                </div>
+              </div>
+            </sui-accordion-panel>
+          </sui-accordion>
+
+        </div>
+        <button class="button-primary" (click)="onSave()" [disabled]="!form.valid" type="submit">Save</button>
+        &nbsp;&nbsp;
+        <span class="loader" *ngIf="loader"><span class="ui active tiny inline loader"></span>&nbsp;<span>loading</span></span>
+      </form>
+    </div>
+  </column>
+  <column xs="12" sm="12" md="6" lg="6" xl="6">
+    <ngx-table [configuration]="configuration" (event)="eventEmitted($event)" [pagination]="pagination" [data]="data" [columns]="columns">
+    </ngx-table>
+  </column>
+</row>
+
+
+<ng-template let-context let-modal="modal" #modalTemplate>
+  <div class="header">{{context.title}}</div>
+  <div class="content">
+    <p>{{ context.data }}</p>
+  </div>
+  <div class="actions">
+    <button class="ui green button" (click)="modal.approve('approved')" autofocus>OK</button>
+  </div>
+</ng-template>

@@ -1,0 +1,107 @@
+<sui-message class="warning" *ngIf="isError" (dismiss)="isError=false">
+  <div class="header">
+    {{message.title}}
+  </div>
+  <p>{{message.message}}</p>
+</sui-message>
+<br />
+<row>
+  <column xs="12" sm="12" md="6" lg="6" xl="6">
+    <div class="user-container">
+      <div class="ui segment">
+        <h4 class="ui header">Primary Data</h4>
+        <div class="user-sprite">
+          <form class="ui form user-form">
+            <label for="uname"><b>Username</b></label>
+            <input type="text" [(ngModel)]="user.Username" placeholder="Enter Username" name="uname" required>
+
+            <div class="field">
+              <sui-checkbox class="slider" suiPopup popupHeader="Important for new user!" popupText="Password will randomly generated after data saved"
+                popupInverted [popupPlacement]="right" (ngModelChange)="chUpdatePwd($event)" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="updatePwd">Change password existing user</sui-checkbox>
+            </div>
+
+            <label for="pwd"><b>Password</b></label>
+            <input type="password" [disabled]="updatePwd ? null:'disabled'" [(ngModel)]="user.Password" placeholder="Enter Password"
+              name="pwd" required>
+
+            <label for="cpwd"><b>Confirm Password</b></label>
+            <input type="password" [disabled]="updatePwd ? null:'disabled'" [(ngModel)]="user.CPassword" placeholder="Enter Confirm Password"
+              name="cpwd" required>
+            <div class="field">
+              <sui-checkbox class="slider" [ngModelOptions]="{standalone: true}" [(ngModel)]="user.IsActive">Active ?</sui-checkbox>
+            </div>
+            <button class="button-primary" (click)="onSave()" type="submit">Save</button>
+            &nbsp;&nbsp;
+            <button class="button-primary" (click)="onClear()" type="submit">Clear</button>
+            &nbsp;&nbsp;
+            <span class="loader" *ngIf="loader"><span class="ui active tiny inline loader"></span>&nbsp;<span>loading</span></span>
+            <span style="padding:6px;background: mediumseagreen;border: seagreen 1px solid;" *ngIf="saved"><span>Saved!</span></span>
+          </form>
+        </div>
+      </div>
+
+
+    </div>
+    <br />
+  </column>
+  <column xs="12" sm="12" md="6" lg="6" xl="6">
+    <ngx-table [configuration]="configuration" (event)="eventEmitted($event)" [pagination]="pagination" [data]="data"
+      [columns]="columns">
+      <ng-template let-row>
+        <td>
+          {{row.Username}}
+        </td>
+        <td>
+          {{row.LoginDate}}
+        </td>
+        <td>
+          {{row.IsActive}}
+        </td>
+        <td>
+          <button class="button-primary" (click)="showModal()">
+            <i class="fas fa-edit"></i>
+          </button>
+        </td>
+      </ng-template>
+    </ngx-table>
+  </column>
+</row>
+
+
+<ng-template let-context let-modal="modal" #modalTemplate>
+  <div class="header">Detail Data</div>
+  <div class="content">
+    <div content>
+      <div class="user-sprite">
+        <form class="ui form user-form">
+          <label for="fname"><b>First Name</b></label>
+          <input type="text" placeholder="First Name" [(ngModel)]="userDetail.FirstName" name="fname">
+
+          <label for="lname"><b>Last Name</b></label>
+          <input type="text" placeholder="Last Name" [(ngModel)]="userDetail.LastName" name="lname">
+
+          <label for="gender"><b>Sex</b></label><br />
+
+          <sui-select placeholder="Choose" [(ngModel)]="userDetail.Gender" name="gender">
+            <sui-select-option value="<i class='icon male'></i>| Male"></sui-select-option>
+            <sui-select-option value="<i class='icon female'></i>| Female"></sui-select-option>
+          </sui-select>
+          <br />
+
+          <label for="phone"><b>Phone</b></label>
+          <input type="text" (keypress)="numberOnly($event)" placeholder="Phone" [(ngModel)]="userDetail.Phone" name="phone">
+
+          <label for="email"><b>Email</b></label>
+          <input type="text" placeholder="Email" [(ngModel)]="userDetail.Email" name="email">
+        </form>
+      </div>
+    </div>
+  </div>
+  <div class="actions">
+    <button style="float:left" class="button-dgr" (click)="modal.approve('deleted')"> <i class="fas fa-trash"></i> Delete</button>
+    <button class="button-primary" (click)="modal.approve('approved')" autofocus>Save</button>&nbsp;
+    <button class="button-nd" (click)="modal.deny('denied')">Cancel</button>
+  </div>
+  <br />
+</ng-template>

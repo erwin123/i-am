@@ -1,0 +1,12 @@
+
+.apps-form {
+    margin:10px;
+}
+
+.apps-form .apps-sprite>* {
+    margin: 5px 0 5px 0;
+}
+
+:host /deep/ #table > tbody > tr > td {
+    cursor:pointer;
+  }

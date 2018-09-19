@@ -1,0 +1,39 @@
+<row class="login-container">
+  <column xs="1" sm="1" md="4" lg="4" xl="4">
+    <!--none-->
+  </column>
+  <column xs="10" sm="10" md="4" lg="4" xl="4">
+    <div class="login-title">
+      <h1 class="skewed">Identity <br/>Access Management</h1>
+    </div>
+    <div class="login-sprite">
+
+      <form class="ui form" [formGroup]="form">
+        <label for="uname"><b>Username</b></label>
+        <input type="text" placeholder="Enter Username" formControlName="uname" name="uname" required>
+
+        <label for="pwd"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" formControlName="pwd" name="pwd" required>
+
+        <button class="button-primary" (click)="onSubmit()" [disabled]="!form.valid" type="submit">Login</button>
+        &nbsp;
+        <a href="#">Forgot Password</a>
+        &nbsp;
+        <span class="loader" *ngIf="loader"><span class="ui active tiny inline loader"></span>&nbsp;<span>loading</span></span>
+      </form>
+    </div>
+    <div class="login-footer">Experd 2018</div>
+  </column>
+  <column xs="1" sm="1" md="4" lg="4" xl="4">
+    <!--none-->
+  </column>
+</row>
+<ng-template let-context let-modal="modal" #modalTemplate  >
+    <div class="header">{{context.title}}</div>
+    <div class="content">
+        <p>{{ context.data }}</p>
+    </div>
+    <div class="actions">
+        <button class="ui green button" (click)="modal.approve('approved')" autofocus>OK</button>
+    </div>
+</ng-template>

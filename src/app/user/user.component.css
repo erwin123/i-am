@@ -1,0 +1,9 @@
+
+
+.user-form>* {
+    margin: 15px 0 15px 0 !important;
+}
+
+:host /deep/ #table > tbody > tr > td {
+    cursor:pointer;
+  }
